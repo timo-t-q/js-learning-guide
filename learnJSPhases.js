@@ -1,116 +1,132 @@
-// Phases, Examples, and Resources for Learning JavaScript
+/**
+ * Comprehensive JavaScript Learning Roadmap
+ * Includes Phases, Deep-Dive Examples, and Curated Resources.
+ */
 
 const learningPhases = [
   {
-    phase: "Phase 1: Basics of JavaScript",
+    phase: "Phase 1: Foundations & Core Logic",
     timeline: "1-2 weeks",
-    description: "Focus on understanding how the language works at a fundamental level.",
+    description: "Mastering the fundamental building blocks of the language.",
     topics: [
       {
-        title: "Variables and Data Types",
-        example: "let name = 'Alice'; const age = 25; let isStudent = true;",
-        details: "Learn the difference between let, const, and var. Understand primitives vs objects."
+        title: "Variables, Scope & Hoisting",
+        example: `
+// Hoisting example
+console.log(a); // undefined (hoisted)
+var a = 5; 
+
+// Block scope
+{
+  let b = 10;
+  const c = 20;
+}
+// console.log(b); // ReferenceError`,
+        details: "Understand 'var' vs 'let/const', function vs block scope, and the temporal dead zone."
       },
       {
-        title: "Operators and Control Flow",
-        example: "if (age >= 18) { console.log('Adult'); } else { console.log('Minor'); }",
-        details: "Logical operators (&&, ||, !), comparison (===), and loops (for, while, for...of)."
+        title: "Primitive vs Reference Types",
+        example: `
+let x = 10; let y = x; y = 20; // x remains 10
+let obj1 = { val: 10 }; let obj2 = obj1; obj2.val = 20; // obj1.val is now 20`,
+        details: "Learn how memory works for strings/numbers vs objects/arrays."
       },
       {
-        title: "Functions",
-        example: "function greet(user) { return `Hello, ${user}!`; }",
-        details: "Declaration, parameters, return values, and scope basics."
+        title: "Logic & Control Flow",
+        example: `
+const status = age >= 18 ? 'Adult' : 'Minor'; // Ternary
+const user = null ?? 'Guest'; // Nullish coalescing`,
+        details: "Master truthy/falsy values, short-circuiting, and modern operators."
       }
     ]
   },
   {
-    phase: "Phase 2: Intermediate JavaScript",
+    phase: "Phase 2: Functional & Data-Driven JS",
     timeline: "2-4 weeks",
-    description: "Move from syntax to interacting with the environment and managing data structure.",
+    description: "Learning to manipulate data efficiently and handle the DOM.",
     topics: [
       {
-        title: "DOM Manipulation",
-        example: "const btn = document.querySelector('#myBtn'); btn.addEventListener('click', () => alert('Clicked!'));",
-        details: "Selecting elements, changing styles/attributes, and handling user events."
+        title: "Closures & Higher-Order Functions",
+        example: `
+function makeCounter() {
+  let count = 0;
+  return () => ++count; // Closure: remembers 'count'
+}
+const counter = makeCounter();`,
+        details: "Essential for state management and private variables."
       },
       {
-        title: "Arrays and Objects",
-        example: "const numbers = [1, 2, 3]; const doubled = numbers.map(n => n * 2);",
-        details: "Master methods like .map(), .filter(), .reduce(). Understand object destructuring and spread operators."
+        title: "Advanced Array Methods",
+        example: `
+const sum = [1, 2, 3, 4].reduce((acc, curr) => acc + curr, 0);
+const names = users.filter(u => u.active).map(u => u.name);`,
+        details: "Declarative programming using .reduce, .some, .every, .find, and .flatMap."
       },
       {
-        title: "ES6+ Features",
-        example: "const add = (a, b) => a + b; const { name, age } = user;",
-        details: "Arrow functions, template literals, destructuring, and rest/spread syntax."
+        title: "DOM & Event Delegation",
+        example: `
+document.querySelector('#parent').addEventListener('click', (e) => {
+  if (e.target.matches('.child')) console.log('Child clicked!');
+});`,
+        details: "Efficient event handling by attaching listeners to parent elements."
       }
     ]
   },
   {
-    phase: "Phase 3: Advanced JavaScript",
+    phase: "Phase 3: OOP & Asynchronous Patterns",
     timeline: "4-6 weeks",
-    description: "Understand the 'under the hood' mechanics and handle complex operations.",
+    description: "Building scalable architectures and handling network requests.",
     topics: [
       {
-        title: "Asynchronous JavaScript",
-        example: "async function fetchData() { const response = await fetch(url); const data = await response.json(); }",
-        details: "The Event Loop, Callbacks, Promises, and the modern Async/Await syntax."
+        title: "Prototypal Inheritance & 'this'",
+        example: `
+function Person(name) { this.name = name; }
+Person.prototype.greet = function() { return \`Hi, I'm \${this.name}\`; };
+// 'this' depends on call site!`,
+        details: "Understanding the prototype chain, .call(), .apply(), and .bind()."
       },
       {
-        title: "Prototypes and Classes",
-        example: "class Animal { constructor(name) { this.name = name; } speak() { console.log('Hi'); } }",
-        details: "Prototypal inheritance, 'this' keyword binding, and the Class syntax (syntactic sugar)."
-      },
-      {
-        title: "Modules",
-        example: "export const myFunc = () => {}; import { myFunc } from './myModule.js';",
-        details: "Organizing code with ES Modules (import/export) and understanding scope within modules."
+        title: "Promises & Async/Await Deep Dive",
+        example: `
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+async function run() {
+  await wait(1000);
+  console.log('Done');
+}`,
+        details: "Microtasks vs Macrotasks, Promise.all, Promise.allSettled, and error boundaries."
       }
     ]
   },
   {
-    phase: "Phase 4: Ecosystem and Professional Tools",
+    phase: "Phase 4: Advanced Patterns & Internals",
     timeline: "Ongoing",
-    description: "Applying JS in real-world environments with industry-standard tools.",
+    description: "The 'Senior' topics: Meta-programming and the JS Engine.",
     topics: [
       {
-        title: "Node.js and NPM",
-        example: "npm install express; const express = require('express');",
-        details: "Running JS on the server, managing packages, and building CLI tools."
+        title: "Proxies & Reflect",
+        example: `
+const user = { name: 'Bob' };
+const proxy = new Proxy(user, {
+  get(target, prop) {
+    console.log(\`Accessing \${prop}\`);
+    return target[prop];
+  }
+});`,
+        details: "Used by modern frameworks (like Vue 3) for reactivity."
       },
       {
-        title: "Frameworks (React/Vue/Next.js)",
-        example: "function App() { return <h1>Hello World</h1>; }",
-        details: "State management, component architecture, and routing."
-      },
-      {
-        title: "Testing and Tooling",
-        example: "test('adds 1 + 2 to equal 3', () => { expect(sum(1, 2)).toBe(3); });",
-        details: "Unit testing with Jest/Vitest, linting with ESLint, and bundling with Vite/Webpack."
+        title: "The Event Loop",
+        details: "How the Call Stack, Web APIs, Task Queue, and Microtask Queue interact."
       }
     ]
   }
 ];
 
-const learningResources = {
-  documentation: [
-    { name: "MDN Web Docs", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript", type: "Reference" },
-    { name: "JavaScript.info", url: "https://javascript.info/", type: "Deep Dive" }
-  ],
-  interactive: [
-    { name: "FreeCodeCamp", url: "https://www.freecodecamp.org/", type: "Curriculum" },
-    { name: "Codecademy", url: "https://www.codecademy.com/", type: "Interactive" },
-    { name: "Exercism", url: "https://exercism.org/tracks/javascript", type: "Practice" }
-  ],
-  video: [
-    { name: "The Net Ninja (YouTube)", url: "https://www.youtube.com/@NetNinja", type: "Tutorials" },
-    { name: "Frontend Masters", url: "https://frontendmasters.com/", type: "Professional" }
-  ],
-  books: [
-    { name: "You Don't Know JS Yet", author: "Kyle Simpson" },
-    { name: "Eloquent JavaScript", author: "Marijn Haverbeke" }
-  ]
+const resources = {
+  foundations: ["MDN Web Docs", "JavaScript.info", "Eloquent JavaScript"],
+  advanced: ["You Don't Know JS Yet (Book Series)", "Frontend Masters (Deep Dive courses)"],
+  newsletters: ["JS Weekly", "Frontend Focus", "Bytes.dev"],
+  practice: ["Exercism (JS Track)", "Codewars", "Advent of Code"]
 };
 
-console.log("Updated JS Learning Guide:");
-console.log("Phases:", JSON.stringify(learningPhases, null, 2));
-console.log("Resources:", JSON.stringify(learningResources, null, 2));
+console.log("Roadmap Loaded Successfully.");
